@@ -1,0 +1,8 @@
+# Node modules
+server_test/node_modules/
+
+# Environment files
+server_test/.env
+
+# System files
+.DS_Store
