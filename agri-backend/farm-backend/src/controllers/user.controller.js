@@ -1,4 +1,6 @@
 import pool from '../config/database.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -74,7 +76,7 @@ export const createUser = async (req, res) => {
     const {
       username,
       email,
-      password_hash,
+      password,
       full_name,
       avatar_url,
       phone,
@@ -85,8 +87,13 @@ export const createUser = async (req, res) => {
       main_crops,
       experience_years,
       farming_method,
-      commune_id
+      commune_id,
+      role_id = 2 // Default to 'farmer' role
     } = req.body;
+
+    // Hash password
+    const saltRounds = 10;
+    const password_hash = await bcrypt.hash(password, saltRounds);
 
     const result = await pool.query(
       `INSERT INTO users (
@@ -104,11 +111,12 @@ export const createUser = async (req, res) => {
         experience_years,
         farming_method,
         commune_id,
+        role_id,
         created_at,
         updated_at
       ) VALUES (
         $1, $2, $3, $4, $5, $6, $7, $8,
-        $9, $10, $11, $12, $13, $14,
+        $9, $10, $11, $12, $13, $14, $15,
         NOW(), NOW()
       ) RETURNING *`,
       [
@@ -125,7 +133,8 @@ export const createUser = async (req, res) => {
         main_crops,
         experience_years,
         farming_method,
-        commune_id
+        commune_id,
+        role_id
       ]
     );
 
@@ -229,5 +238,53 @@ export const toggleUserActive = async (req, res) => {
   } catch (err) {
     console.error("Error toggling user:", err);
     res.status(500).json({ error: "Server error" });
+  }
+};
+
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Find user by email
+    const result = await pool.query(
+      `SELECT u.id, u.username, u.password_hash, u.email, r.name as role_name
+       FROM users u
+       JOIN roles r ON u.role_id = r.id
+       WHERE u.email = $1`,
+      [email]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    const user = result.rows[0];
+
+    // Check password
+    const isValidPassword = await bcrypt.compare(password, user.password_hash);
+    if (!isValidPassword) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user.id, username: user.username, role: user.role_name },
+      process.env.JWT_SECRET || 'your-secret-key',
+      { expiresIn: '24h' }
+    );
+
+    // Return user info and token
+    res.json({
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role_name
+      },
+      token
+    });
+  } catch (error) {
+    console.error('❌ Login error:', error);
+    res.status(500).json({ error: 'Server error' });
   }
 };

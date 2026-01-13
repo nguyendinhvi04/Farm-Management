@@ -1,10 +1,11 @@
 import express from 'express';
-import { getAllUsers, 
-    getUserById, 
-    createUser, 
-    updateUser, 
+import { getAllUsers,
+    getUserById,
+    createUser,
+    updateUser,
     deleteUser ,
     toggleUserActive,
+    loginUser
  } from '../controllers/user.controller.js';
 
 const router = express.Router();
@@ -15,4 +16,5 @@ router.post('/', createUser);      // POST /users
 router.put('/:id', updateUser)   // PUT /users
 router.delete('/:id', deleteUser); // DELETE /users/:id
 router.put("/:id/toggle-active", toggleUserActive); // LOCK user:/id
+router.post('/login', loginUser); // POST /users/login
 export default router;
