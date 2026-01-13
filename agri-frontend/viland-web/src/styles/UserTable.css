@@ -1,0 +1,296 @@
+/* --- Container chính --- */
+.user-table-container {
+  overflow-x: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  max-height: 1000px; 
+  overflow-y: auto; 
+  border: 1px solid #f1f5f9;
+  transition: box-shadow 0.3s ease;
+}
+
+.user-table-container:hover {
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* --- Bảng --- */
+.user-table {
+  min-width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: left;
+  border-collapse: collapse;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* --- Tiêu đề bảng --- */
+.user-table-thead {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  position: sticky; 
+  top: 0; 
+  z-index: 10;
+}
+
+.user-table-thead::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+}
+
+/* --- Hàng trong bảng --- */
+.user-table-row {
+  border-top: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.user-table-row:hover {
+  background-color: #f8fafc;
+}
+
+/* --- Ô tiêu đề (th) và ô dữ liệu (td) --- */
+.user-table-th,
+.user-table-td {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  position: relative;
+}
+
+.user-table-th {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  position: sticky
+}
+
+.user-table-td {
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  color: #4b5563;
+  vertical-align: middle;
+}
+
+/* --- Ô chứa các nút thao tác --- */
+.user-table-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* --- Các nút thao tác --- */
+.action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.action-button:hover::before {
+  left: 100%;
+}
+
+.action-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.action-button:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+
+/* --- Nút chỉnh sửa (Modern Blue) --- */
+.btn-edit {
+  color: #ffffff;
+  background: linear-gradient(135deg, #667eea 0%, #105ac2 100%);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #105ac2 100);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+/* --- Nút xóa (Modern Red) --- */
+.btn-delete {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #ff5252 0%, #d63031 100%);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+  transform: translateY(-2px);
+  border-color: rgba(255, 107, 107, 0.5);
+}
+
+/* --- Nút khóa/mở khóa (Modern Orange/Green) --- */
+.btn-lock {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffa726 0%, #ff7043 100%);
+  border: 1px solid rgba(255, 167, 38, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 167, 38, 0.2);
+}
+
+.btn-lock:hover {
+  background: linear-gradient(135deg, #ff9800 0%, #e64a19 100%);
+  box-shadow: 0 8px 25px rgba(255, 167, 38, 0.4);
+  transform: translateY(-2px);
+  border-color: rgba(255, 167, 38, 0.5);
+}
+
+/* --- Unlock variant (Green gradient) --- */
+.btn-lock.unlock {
+  background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+}
+
+.btn-lock.unlock:hover {
+  background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  .user-table-container {
+    border-radius: 8px;
+    margin: 0 1rem;
+  }
+  
+  .user-table-th,
+  .user-table-td {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .user-table-th {
+    font-size: 0.75rem;
+  }
+  
+  .user-table-td {
+    font-size: 0.8125rem;
+  }
+  
+  .action-button {
+    min-width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+  
+  .user-table-actions {
+    gap: 0.5rem;
+  }
+}
+
+/* --- Dark mode support --- */
+@media (prefers-color-scheme: dark) {
+  .user-table-container {
+    background-color: #1f2937;
+    border-color: #374151;
+  }
+  
+  .user-table-thead {
+    background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+  }
+  
+  .user-table-row {
+    border-color: #374151;
+  }
+  
+  .user-table-row:hover {
+    background-color: #2d3748;
+  }
+  
+  .user-table-th {
+    color: #e5e7eb;
+  }
+  
+  .user-table-td {
+    color: #d1d5db;
+  }
+}
+
+/* --- Loading animation cho các nút --- */
+.action-button.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.action-button.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- Focus states cho accessibility --- */
+.action-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.btn-edit:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.btn-delete:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+}
+
+.btn-lock:focus {
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+}
