@@ -59,13 +59,13 @@ export default function RegisterPage() {
       <div className="auth-overlay"></div>
 
       <div className="auth-card">
-        <h2 className="auth-title">🌾 VILAND FARM</h2>
-        <p className="auth-subtitle">Tạo tài khoản để bắt đầu quản lý farm</p>
+        <h2 className="auth-title">FARM MANAGEMENT</h2>
+        <p className="auth-subtitle">Register to manage your farm</p>
 
         {error && <div className="error-message">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
-          <label>Họ và tên</label>
+          <label>Full name</label>
           <input
             type="text"
             name="full_name"
@@ -95,7 +95,7 @@ export default function RegisterPage() {
             required
           />
 
-          <label>Mật khẩu</label>
+          <label>Password</label>
           <input
             type="password"
             name="password"
@@ -105,7 +105,7 @@ export default function RegisterPage() {
             required
           />
 
-          <label>Xác nhận mật khẩu</label>
+          <label>Confirm password</label>
           <input
             type="password"
             name="confirmPassword"
@@ -121,9 +121,9 @@ export default function RegisterPage() {
         </form>
 
         <p className="auth-footer">
-          Đã có tài khoản?{" "}
+          Already have an account?{" "}
           <Link href="/login" className="auth-link">
-            Đăng nhập
+            Login
           </Link>
         </p>
       </div>

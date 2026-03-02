@@ -1,54 +1,66 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const DashboardPreviewSection = () => {
   return (
-    <section className="dashboard-preview-section">
-      <div className="container">
-        <div className="dashboard-preview-grid">
-          <div className="dashboard-mockup">
-            <div className="mockup-container">
-              <div className="mockup-header">
-                <div className="mockup-nav">
-                  <span>📊 Dashboard</span>
-                  <span>🌾 Crops</span>
-                  <span>🐄 Livestock</span>
-                </div>
+    <section className="luxury-dashboard-section">
+      <div className="luxury-dashboard-container">
+
+        <motion.div
+          className="luxury-dashboard-header"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="luxury-section-subtitle">THE COMMAND CENTER</span>
+          <h2 className="luxury-section-headline">All Your Farm Data<br />in One Place</h2>
+          <p className="luxury-dashboard-paragraph">
+            Get real-time insights into crops, livestock, weather, and finances.
+            Monitor everything from soil moisture to market prices in one sophisticated dashboard.
+          </p>
+        </motion.div>
+
+        <div className="luxury-dashboard-mockup-wrapper">
+          <motion.div
+            className="luxury-dashboard-mockup"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1 }}
+          >
+            <div className="luxury-dashboard-mockup-header">
+              <span className="luxury-dashboard-mockup-dot dashboard-dot-red"></span>
+              <span className="luxury-dashboard-mockup-dot dashboard-dot-yellow"></span>
+              <span className="luxury-dashboard-mockup-dot dashboard-dot-green"></span>
+            </div>
+
+            <div className="luxury-dashboard-mockup-body">
+              <div className="luxury-dashboard-sidebar">
+                <div className="luxury-dashboard-sidebar-item active"></div>
+                <div className="luxury-dashboard-sidebar-item"></div>
+                <div className="luxury-dashboard-sidebar-item"></div>
+                <div className="luxury-dashboard-sidebar-item"></div>
               </div>
-              <div className="mockup-content">
-                <div className="mockup-card">
-                  <h4>Crop Status</h4>
-                  <div className="mockup-chart">
-                    <div className="chart-bar" style={{height: '60%'}}></div>
-                    <div className="chart-bar" style={{height: '80%'}}></div>
-                    <div className="chart-bar" style={{height: '45%'}}></div>
-                  </div>
+
+              <div className="luxury-dashboard-main">
+                <div className="luxury-dashboard-chart-area">
+                  <motion.div className="luxury-dashboard-bar" initial={{ height: 0 }} whileInView={{ height: '40%' }} transition={{ duration: 1.5, delay: 0.2 }}></motion.div>
+                  <motion.div className="luxury-dashboard-bar" initial={{ height: 0 }} whileInView={{ height: '70%' }} transition={{ duration: 1.5, delay: 0.4 }}></motion.div>
+                  <motion.div className="luxury-dashboard-bar" initial={{ height: 0 }} whileInView={{ height: '50%' }} transition={{ duration: 1.5, delay: 0.6 }}></motion.div>
+                  <motion.div className="luxury-dashboard-bar" initial={{ height: 0 }} whileInView={{ height: '90%' }} transition={{ duration: 1.5, delay: 0.8 }}></motion.div>
+                  <motion.div className="luxury-dashboard-bar" initial={{ height: 0 }} whileInView={{ height: '65%' }} transition={{ duration: 1.5, delay: 1.0 }}></motion.div>
+                  <motion.div className="luxury-dashboard-bar" initial={{ height: 0 }} whileInView={{ height: '85%' }} transition={{ duration: 1.5, delay: 1.2 }}></motion.div>
                 </div>
-                <div className="mockup-card">
-                  <h4>Weather</h4>
-                  <div className="weather-info">
-                    <span>☀️ 24°C</span>
-                    <span>💧 65%</span>
-                  </div>
-                </div>
-                <div className="mockup-card">
-                  <h4>Water Usage</h4>
-                  <div className="usage-bar">
-                    <div className="usage-fill" style={{width: '78%'}}></div>
-                  </div>
-                </div>
+                <div className="luxury-dashboard-card"></div>
+                <div className="luxury-dashboard-card"></div>
               </div>
             </div>
-          </div>
-          <div className="dashboard-text">
-            <h2>All Your Farm Data in One Place</h2>
-            <p>
-              Get real-time insights into crops, livestock, weather, and finances.
-              Monitor everything from soil moisture to market prices in one comprehensive dashboard.
-            </p>
-          </div>
+          </motion.div>
         </div>
+
       </div>
     </section>
   );

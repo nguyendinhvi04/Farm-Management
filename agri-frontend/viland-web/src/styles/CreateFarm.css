@@ -1,350 +1,396 @@
-.create-farm-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem;
+/* === CREATE FARM — additional styles layered on top of Dashboard.css === */
+
+/* Back button */
+.cf-back-btn {
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--db-text-secondary, #64748b);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background: var(--db-bg, #f0f2f5);
+  border: 1px solid var(--db-border, #e2e8f0);
+  transition: all 0.2s;
 }
 
-.create-farm-card {
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  max-width: 900px;
-  width: 100%;
-  padding: 3rem;
-  animation: slideUp 0.5s ease-out;
+.cf-back-btn:hover {
+  background: #e2e8f0;
+  color: var(--db-text-primary, #0f172a);
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Page content wrapper */
+.cf-content {
+  padding: 1.5rem 2rem 3rem;
+  flex: 1;
 }
 
-.create-farm-card h1 {
-  font-size: 2.5rem;
-  color: #2d3748;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-.subtitle {
-  color: #718096;
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-}
-
-.error-message {
-  background: #fed7d7;
-  border: 1px solid #fc8181;
-  border-radius: 8px;
-  padding: 1rem;
+.cf-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #dc2626;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
   margin-bottom: 1.5rem;
-  color: #c53030;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
-.farm-form {
+/* Two-column form */
+.cf-form {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* Section card */
+.cf-section {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.cf-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.cf-section-title h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+  flex: 1;
+}
+
+.cf-optional {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+/* Fields */
+.cf-field {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 6px;
+  margin-bottom: 1.25rem;
 }
 
-.form-section {
-  background: #f7fafc;
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid #e2e8f0;
-}
-
-.form-section h2 {
-  font-size: 1.5rem;
-  color: #2d3748;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.section-header h2 {
+.cf-field:last-of-type {
   margin-bottom: 0;
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  font-weight: 600;
-  color: #4a5568;
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
-}
-
-.required {
-  color: #e53e3e;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background: white;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.form-hint {
-  display: block;
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: #718096;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
-/* Plot Form */
-.plot-form {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 2px dashed #cbd5e0;
-  margin-bottom: 1.5rem;
-}
-
-.btn-add-plot {
-  background: #48bb78;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.btn-add-plot:hover {
-  background: #38a169;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
-}
-
-/* Plots List */
-.plots-list {
-  margin-top: 1.5rem;
-}
-
-.plots-list h3 {
-  font-size: 1.2rem;
-  color: #2d3748;
-  margin-bottom: 1rem;
-}
-
-.plots-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.plot-card {
-  background: white;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 1rem;
+.cf-field label {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  transition: all 0.3s ease;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.plot-card:hover {
-  border-color: #667eea;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+.cf-required {
+  color: #ef4444;
 }
 
-.plot-info h4 {
-  font-size: 1.1rem;
-  color: #2d3748;
-  margin-bottom: 0.5rem;
+.cf-field input,
+.cf-field select {
+  font-family: 'Inter', sans-serif;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  color: #0f172a;
+  transition: all 0.2s;
+  outline: none;
+  width: 100%;
 }
 
-.plot-info p {
-  color: #718096;
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
+.cf-field input:focus,
+.cf-field select:focus {
+  border-color: #22c55e;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
 }
 
-.soil-tag {
-  display: inline-block;
-  background: #edf2f7;
-  color: #4a5568;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.85rem;
+.cf-field input::placeholder {
+  color: #94a3b8;
 }
 
-.btn-remove {
-  background: #fc8181;
-  color: white;
-  border: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+.cf-hint {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Action buttons row */
+.cf-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.cf-btn-cancel {
+  flex: 1;
+  font-family: 'Inter', sans-serif;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.cf-btn-cancel:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+.cf-btn-submit {
+  flex: 2;
+  font-family: 'Inter', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.btn-remove:hover {
-  background: #f56565;
-  transform: scale(1.1);
-}
-
-.total-area {
-  font-weight: 600;
-  color: #2d3748;
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background: #edf2f7;
-  border-radius: 8px;
-  text-align: center;
-}
-
-/* Buttons */
-.btn-secondary {
-  background: #667eea;
-  color: white;
+  gap: 8px;
+  background: #22c55e;
+  color: #fff;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
   font-size: 0.9rem;
-}
-
-.btn-secondary:hover {
-  background: #5a67d8;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-  margin-top: 2rem;
-}
-
-.btn-cancel {
-  background: #e2e8f0;
-  color: #4a5568;
-  border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
+  transition: all 0.2s;
 }
 
-.btn-cancel:hover {
-  background: #cbd5e0;
+.cf-btn-submit:hover:not(:disabled) {
+  background: #16a34a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
 }
 
-.btn-submit {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-}
-
-.btn-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
-
-.btn-submit:disabled,
-.btn-cancel:disabled {
-  opacity: 0.6;
+.cf-btn-submit:disabled,
+.cf-btn-cancel:disabled {
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
+/* Add plot button in section header */
+.cf-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cf-add-btn:hover {
+  background: rgba(34, 197, 94, 0.18);
+}
+
+/* Inline plot form */
+.cf-plot-form {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cf-plot-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.cf-add-plot-confirm {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+
+.cf-add-plot-confirm:hover {
+  background: #16a34a;
+}
+
+/* Plots list */
+.cf-plots-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.cf-plot-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.75rem;
+  transition: all 0.2s;
+}
+
+.cf-plot-card:hover {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+
+.cf-plot-icon {
+  width: 34px;
+  height: 34px;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cf-plot-info {
+  flex: 1;
+}
+
+.cf-plot-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 2px;
+}
+
+.cf-plot-meta {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.cf-remove-btn {
+  background: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.375rem;
+  cursor: pointer;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.cf-remove-btn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.cf-total-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 10px;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  color: #0f172a;
+}
+
+.cf-total-bar strong {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+/* Empty state */
+.cf-plots-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.cf-plots-empty p {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #64748b;
+  margin: 0;
+}
+
+.cf-plots-empty span {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* Left column layout helper */
+.cf-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cf-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
 /* Responsive */
+@media (max-width: 900px) {
+  .cf-form {
+    grid-template-columns: 1fr;
+  }
+
+  .cf-plot-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
-  .create-farm-container {
+  .cf-content {
     padding: 1rem;
-  }
-
-  .create-farm-card {
-    padding: 2rem 1.5rem;
-  }
-
-  .create-farm-card h1 {
-    font-size: 2rem;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .plots-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .form-actions {
-    flex-direction: column-reverse;
-  }
-
-  .btn-cancel,
-  .btn-submit {
-    width: 100%;
   }
 }

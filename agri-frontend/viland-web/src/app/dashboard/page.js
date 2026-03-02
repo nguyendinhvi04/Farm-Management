@@ -1,223 +1,301 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import {
+  LayoutDashboard, Wheat, Beef, Droplets, Package,
+  BarChart3, Settings, HelpCircle, Search, Bell,
+  TrendingUp, TrendingDown, Sprout, Thermometer,
+  Wind, CloudRain, Activity, ChevronRight, Circle, Plus
+} from 'lucide-react';
 import '../../styles/Dashboard.css';
 
 export default function FarmDashboard() {
   const [activeNav, setActiveNav] = useState('dashboard');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
 
-  // Mock data for dashboard
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('user');
+      if (stored) setCurrentUser(JSON.parse(stored));
+    } catch { }
+  }, []);
+
+  const getInitials = (user) => {
+    if (!user) return 'U';
+    const name = user.full_name || user.username || '';
+    return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'U';
+  };
+
+  const getDisplayName = (user) => {
+    if (!user) return 'Guest';
+    return user.full_name || user.username || user.email || 'User';
+  };
+
   const cropData = [
-    { name: 'Wheat', growth: 75, color: '#4CAF50', icon: '🌾' },
-    { name: 'Corn', growth: 60, color: '#FFEB3B', icon: '🌽' },
-    { name: 'Rice', growth: 85, color: '#8BC34A', icon: '🍚' }
+    { name: 'Wheat', growth: 75, color: '#22c55e', icon: Wheat },
+    { name: 'Corn', growth: 60, color: '#eab308', icon: Sprout },
+    { name: 'Rice', growth: 85, color: '#3b82f6', icon: Sprout },
   ];
 
   const weatherData = {
     temperature: 24,
     humidity: 65,
+    windSpeed: 12,
     forecast: [
-      { day: 'Today', temp: '24°C', rain: '10%', icon: '☀️' },
-      { day: 'Tomorrow', temp: '22°C', rain: '30%', icon: '⛅' },
-      { day: 'Wed', temp: '20°C', rain: '60%', icon: '🌧️' }
-    ]
+      { day: 'Today', temp: '24°C', rain: '10%', icon: Thermometer },
+      { day: 'Tmr', temp: '22°C', rain: '30%', icon: CloudRain },
+      { day: 'Wed', temp: '20°C', rain: '60%', icon: Wind },
+    ],
   };
 
   const irrigationData = {
     tankLevel: 78,
     pumps: [
-      { name: 'Pump 1', status: 'Active', flow: '12L/min' },
-      { name: 'Pump 2', status: 'Idle', flow: '0L/min' },
-      { name: 'Pump 3', status: 'Active', flow: '8L/min' }
-    ]
+      { name: 'Pump 1', status: 'Active', flow: '12 L/min' },
+      { name: 'Pump 2', status: 'Idle', flow: '0 L/min' },
+      { name: 'Pump 3', status: 'Active', flow: '8 L/min' },
+    ],
   };
 
-  const financialData = {
-    expenses: '$12,450',
-    revenue: '$28,900',
-    profit: '$16,450',
-    profitColor: '#4CAF50'
-  };
+  const stats = [
+    { label: 'Total Revenue', value: '$28,900', trend: '+12.5%', up: true, icon: TrendingUp },
+    { label: 'Total Expenses', value: '$12,450', trend: '-3.2%', up: false, icon: TrendingDown },
+    { label: 'Net Profit', value: '$16,450', trend: '+18.1%', up: true, icon: BarChart3 },
+    { label: 'Active Fields', value: '14', trend: '+2', up: true, icon: Sprout },
+  ];
 
   const recentActivities = [
-    { id: 1, action: 'Fertilizer added to wheat field', time: '2 hours ago', icon: '🌱' },
-    { id: 2, action: 'Corn harvested - 2.5 tons', time: '4 hours ago', icon: '🌽' },
-    { id: 3, action: 'Livestock health check completed', time: '6 hours ago', icon: '🐄' },
-    { id: 4, action: 'Irrigation schedule updated', time: '1 day ago', icon: '💧' }
+    { id: 1, action: 'Fertilizer added to wheat field', time: '2 hours ago', type: 'crop' },
+    { id: 2, action: 'Corn harvested — 2.5 tons', time: '4 hours ago', type: 'harvest' },
+    { id: 3, action: 'Livestock health check completed', time: '6 hours ago', type: 'livestock' },
+    { id: 4, action: 'Irrigation schedule updated', time: '1 day ago', type: 'irrigation' },
   ];
 
   const navigationItems = [
-    { name: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { name: 'crops', label: 'Crop Management', icon: '🌾' },
-    { name: 'livestock', label: 'Livestock', icon: '🐄' },
-    { name: 'irrigation', label: 'Irrigation', icon: '💧' },
-    { name: 'inventory', label: 'Inventory', icon: '📦' },
-    { name: 'reports', label: 'Reports', icon: '📈' },
-    { name: 'settings', label: 'Settings', icon: '⚙️' },
-    { name: 'help', label: 'Help', icon: '❓' }
+    { name: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { name: 'crops', label: 'Crop Management', icon: Wheat },
+    { name: 'new-farm', label: 'New Farm', icon: Plus },
+    { name: 'livestock', label: 'Livestock', icon: Beef },
+    { name: 'irrigation', label: 'Irrigation', icon: Droplets },
+    { name: 'inventory', label: 'Inventory', icon: Package },
+    { name: 'reports', label: 'Reports', icon: BarChart3 },
+    { name: 'settings', label: 'Settings', icon: Settings },
+    { name: 'help', label: 'Help', icon: HelpCircle },
   ];
 
   return (
-    <div className="farm-dashboard">
+    <div className="db-layout">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <h2>🌱 FarmPro</h2>
+      <aside className="db-sidebar">
+        <div className="db-sidebar-logo">
+          <Sprout size={22} color="#22c55e" />
+          <span>Viland Farm</span>
         </div>
-        <nav className="sidebar-nav">
-          {navigationItems.map(item => (
-            <Link
-              key={item.name}
-              href={`/${item.name === 'dashboard' ? 'dashboard' : item.name}`}
-              className={`nav-item ${activeNav === item.name ? 'active' : ''}`}
-              onClick={() => setActiveNav(item.name)}
-            >
-              <span className="nav-icon">{item.icon}</span>
-              <span className="nav-label">{item.label}</span>
-            </Link>
-          ))}
+
+        <nav className="db-sidebar-nav">
+          <p className="db-nav-section">MAIN MENU</p>
+          {navigationItems.slice(0, 6).map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.name}
+                href={`/${item.name === 'dashboard' ? 'dashboard' : item.name}`}
+                className={`db-nav-item ${activeNav === item.name ? 'active' : ''}`}
+                onClick={() => setActiveNav(item.name)}
+              >
+                <Icon size={18} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+
+          <p className="db-nav-section" style={{ marginTop: '1.5rem' }}>SUPPORT</p>
+          {navigationItems.slice(6).map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.name}
+                href={`/${item.name}`}
+                className={`db-nav-item ${activeNav === item.name ? 'active' : ''}`}
+                onClick={() => setActiveNav(item.name)}
+              >
+                <Icon size={18} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
         </nav>
+
+        <div className="db-sidebar-footer">
+          <Link href="/profile" className="db-sidebar-footer-link">
+            <div className="db-user-avatar">{getInitials(currentUser)}</div>
+            <div className="db-user-info">
+              <p className="db-user-name">{getDisplayName(currentUser)}</p>
+              <p className="db-user-role">Farm Manager</p>
+            </div>
+          </Link>
+        </div>
       </aside>
 
       {/* Main Content */}
-      <main className="main-content">
+      <main className="db-main">
         {/* Header */}
-        <header className="dashboard-header">
-          <div className="header-left">
-            <h1>Farm Dashboard</h1>
-            <p>Welcome back, Farm Manager</p>
+        <header className="db-header">
+          <div className="db-header-left">
+            <h1 className="db-page-title">Dashboard</h1>
+            <p className="db-page-subtitle">Welcome back, {getDisplayName(currentUser)} 👋</p>
           </div>
-          <div className="header-right">
-            <div className="search-bar">
+          <div className="db-header-right">
+            <div className="db-search">
+              <Search size={16} className="db-search-icon" />
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Search anything..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <span className="search-icon">🔍</span>
             </div>
-            <button className="notification-btn">
-              <span>🔔</span>
-              <span className="notification-badge">3</span>
+            <button className="db-icon-btn" aria-label="Notifications">
+              <Bell size={20} />
+              <span className="db-badge">3</span>
             </button>
-            <div className="user-profile">
-              <span>👨‍🌾</span>
-              <span>John Farmer</span>
-            </div>
+            <Link href="/profile" className="db-header-user">
+              <div className="db-header-avatar">{getInitials(currentUser)}</div>
+              <span className="db-header-username">{getDisplayName(currentUser)}</span>
+            </Link>
           </div>
         </header>
 
-        {/* Dashboard Grid */}
-        <div className="dashboard-grid">
-          {/* Crop Growth Status */}
-          <div className="dashboard-card">
-            <h3>Crop Growth Status</h3>
-            <div className="crop-status">
-              {cropData.map(crop => (
-                <div key={crop.name} className="crop-item">
-                  <div className="crop-header">
-                    <span className="crop-icon">{crop.icon}</span>
-                    <span className="crop-name">{crop.name}</span>
+        {/* Stats Row */}
+        <div className="db-stats-grid">
+          {stats.map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <div key={stat.label} className="db-stat-card">
+                <div className="db-stat-header">
+                  <p className="db-stat-label">{stat.label}</p>
+                  <div className="db-stat-icon-wrap">
+                    <Icon size={18} />
                   </div>
-                  <div className="progress-bar">
-                    <div 
-                      className="progress-fill" 
-                      style={{ width: `${crop.growth}%`, backgroundColor: crop.color }}
-                    ></div>
+                </div>
+                <p className="db-stat-value">{stat.value}</p>
+                <p className={`db-stat-trend ${stat.up ? 'up' : 'down'}`}>
+                  {stat.up ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
+                  {stat.trend} vs last month
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Main Cards Grid */}
+        <div className="db-grid">
+          {/* Crop Growth */}
+          <div className="db-card">
+            <div className="db-card-header">
+              <h3><Wheat size={18} /> Crop Growth Status</h3>
+              <button className="db-link-btn">View all <ChevronRight size={14} /></button>
+            </div>
+            <div className="db-crop-list">
+              {cropData.map((crop) => {
+                const Icon = crop.icon;
+                return (
+                  <div key={crop.name} className="db-crop-item">
+                    <div className="db-crop-meta">
+                      <div className="db-crop-icon" style={{ backgroundColor: `${crop.color}20`, color: crop.color }}>
+                        <Icon size={16} />
+                      </div>
+                      <span className="db-crop-name">{crop.name}</span>
+                      <span className="db-crop-pct" style={{ color: crop.color }}>{crop.growth}%</span>
+                    </div>
+                    <div className="db-progress-track">
+                      <div
+                        className="db-progress-fill"
+                        style={{ width: `${crop.growth}%`, backgroundColor: crop.color }}
+                      />
+                    </div>
                   </div>
-                  <span className="progress-text">{crop.growth}%</span>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Weather */}
+          <div className="db-card">
+            <div className="db-card-header">
+              <h3><CloudRain size={18} /> Weather Forecast</h3>
+            </div>
+            <div className="db-weather-hero">
+              <div className="db-weather-big">
+                <Thermometer size={40} color="#f97316" />
+                <div>
+                  <p className="db-weather-temp">{weatherData.temperature}°C</p>
+                  <p className="db-weather-label">Sunny · Hanoi</p>
+                </div>
+              </div>
+              <div className="db-weather-chips">
+                <div className="db-chip"><Droplets size={14} /> {weatherData.humidity}% Humidity</div>
+                <div className="db-chip"><Wind size={14} /> {weatherData.windSpeed} km/h</div>
+              </div>
+            </div>
+            <div className="db-forecast-row">
+              {weatherData.forecast.map((day) => {
+                const Icon = day.icon;
+                return (
+                  <div key={day.day} className="db-forecast-item">
+                    <p className="db-forecast-day">{day.day}</p>
+                    <Icon size={20} color="#64748b" />
+                    <p className="db-forecast-temp">{day.temp}</p>
+                    <p className="db-forecast-rain">{day.rain} rain</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Irrigation */}
+          <div className="db-card">
+            <div className="db-card-header">
+              <h3><Droplets size={18} /> Irrigation System</h3>
+            </div>
+            <div className="db-tank-section">
+              <div className="db-tank-header">
+                <span>Water Tank Level</span>
+                <span className="db-tank-pct">{irrigationData.tankLevel}%</span>
+              </div>
+              <div className="db-tank-track">
+                <div className="db-tank-fill" style={{ width: `${irrigationData.tankLevel}%` }} />
+              </div>
+            </div>
+            <div className="db-pump-list">
+              {irrigationData.pumps.map((pump) => (
+                <div key={pump.name} className="db-pump-row">
+                  <Circle size={8} fill={pump.status === 'Active' ? '#22c55e' : '#94a3b8'} color="transparent" />
+                  <span className="db-pump-name">{pump.name}</span>
+                  <span className={`db-pump-status ${pump.status === 'Active' ? 'active' : 'idle'}`}>
+                    {pump.status}
+                  </span>
+                  <span className="db-pump-flow">{pump.flow}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Weather Widget */}
-          <div className="dashboard-card">
-            <h3>Weather Forecast</h3>
-            <div className="weather-widget">
-              <div className="current-weather">
-                <span className="weather-icon">☀️</span>
-                <div>
-                  <p className="weather-temp">{weatherData.temperature}°C</p>
-                  <p className="weather-desc">Sunny</p>
-                </div>
-              </div>
-              <div className="weather-forecast">
-                {weatherData.forecast.map(day => (
-                  <div key={day.day} className="forecast-day">
-                    <span>{day.day}</span>
-                    <span>{day.icon}</span>
-                    <span>{day.temp}</span>
-                    <span>{day.rain}</span>
-                  </div>
-                ))}
-              </div>
+          {/* Recent Activities — full width */}
+          <div className="db-card db-card-full">
+            <div className="db-card-header">
+              <h3><Activity size={18} /> Recent Activities</h3>
+              <button className="db-link-btn">View all <ChevronRight size={14} /></button>
             </div>
-          </div>
-
-          {/* Irrigation System */}
-          <div className="dashboard-card">
-            <h3>Irrigation System</h3>
-            <div className="irrigation-status">
-              <div className="tank-level">
-                <h4>Water Tank Level</h4>
-                <div className="tank-bar">
-                  <div 
-                    className="tank-fill" 
-                    style={{ width: `${irrigationData.tankLevel}%` }}
-                  ></div>
-                </div>
-                <span>{irrigationData.tankLevel}%</span>
-              </div>
-              <div className="pump-status">
-                <h4>Pump Status</h4>
-                {irrigationData.pumps.map(pump => (
-                  <div key={pump.name} className="pump-item">
-                    <span>{pump.name}</span>
-                    <span className={`status ${pump.status.toLowerCase()}`}>
-                      {pump.status}
-                    </span>
-                    <span>{pump.flow}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Financial Summary */}
-          <div className="dashboard-card">
-            <h3>Financial Summary</h3>
-            <div className="financial-summary">
-              <div className="finance-item">
-                <span className="finance-label">Expenses</span>
-                <span className="finance-value expenses">{financialData.expenses}</span>
-              </div>
-              <div className="finance-item">
-                <span className="finance-label">Revenue</span>
-                <span className="finance-value revenue">{financialData.revenue}</span>
-              </div>
-              <div className="finance-item">
-                <span className="finance-label">Profit</span>
-                <span className="finance-value profit" style={{ color: financialData.profitColor }}>
-                  {financialData.profit}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Recent Activities */}
-          <div className="dashboard-card full-width">
-            <h3>Recent Activities</h3>
-            <div className="activities-list">
-              {recentActivities.map(activity => (
-                <div key={activity.id} className="activity-item">
-                  <span className="activity-icon">{activity.icon}</span>
-                  <div className="activity-content">
-                    <p>{activity.action}</p>
-                    <small>{activity.time}</small>
+            <div className="db-activity-list">
+              {recentActivities.map((act) => (
+                <div key={act.id} className="db-activity-row">
+                  <div className="db-activity-dot" />
+                  <div className="db-activity-content">
+                    <p className="db-activity-text">{act.action}</p>
+                    <p className="db-activity-time">{act.time}</p>
                   </div>
                 </div>
               ))}

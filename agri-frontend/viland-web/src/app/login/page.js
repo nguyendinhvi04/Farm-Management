@@ -39,9 +39,8 @@ export default function LoginPage() {
       <div className="auth-overlay"></div>
 
       <div className="auth-card">
-        <h2>🌾 VILAND FARM</h2>
-        <p>Đăng nhập để quản lý farm</p>
-
+        <h2>FARM MANAGEMENT</h2>
+        <p>Login to manage your farm</p>
         {error && <div className="error-message">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
@@ -54,7 +53,7 @@ export default function LoginPage() {
             required
           />
 
-          <label>Mật khẩu</label>
+          <label>Password</label>
           <input
             type="password"
             placeholder="••••••••"
@@ -69,8 +68,8 @@ export default function LoginPage() {
         </form>
 
         <p>
-          Chưa có tài khoản?{" "}
-          <Link href="/register">Đăng ký ngay</Link>
+          Don't have an account?{" "}
+          <Link href="/register">Register now</Link>
         </p>
       </div>
     </section>

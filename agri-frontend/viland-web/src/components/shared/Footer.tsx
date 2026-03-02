@@ -4,9 +4,10 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="container">
-        <p>&copy; 2024 AGRIFARM. Modern farming solutions for sustainable agriculture.</p>
+    <footer className="luxury-footer">
+      <div className="luxury-footer-bottom">
+        <div className="luxury-footer-logo">Viland Farm</div>
+        <p>&copy; {new Date().getFullYear()} Viland Farm Management. All rights reserved.</p>
       </div>
     </footer>
   );

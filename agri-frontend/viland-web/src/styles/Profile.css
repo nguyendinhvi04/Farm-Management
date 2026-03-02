@@ -1,0 +1,281 @@
+/* === PROFILE PAGE STYLES === */
+
+.pf-content {
+    padding: 1.5rem 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 780px;
+}
+
+/* Hero card at top */
+.pf-hero-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.pf-avatar-xl {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+    letter-spacing: 1px;
+}
+
+.pf-hero-name {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 4px;
+}
+
+.pf-hero-email {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0 0 0.75rem;
+}
+
+.pf-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+/* Tabs */
+.pf-tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.375rem;
+    width: fit-content;
+}
+
+.pf-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pf-tab:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.pf-tab.active {
+    background: #22c55e;
+    color: #fff;
+}
+
+/* Form */
+.pf-form {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.pf-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.pf-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pf-field label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pf-field input {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+    color: #0f172a;
+    transition: all 0.2s;
+    outline: none;
+    width: 100%;
+}
+
+.pf-field input:focus {
+    border-color: #22c55e;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.pf-field input::placeholder {
+    color: #94a3b8;
+}
+
+/* Password input with eye toggle */
+.pf-pw-wrap {
+    position: relative;
+}
+
+.pf-pw-wrap input {
+    padding-right: 2.75rem;
+}
+
+.pf-pw-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.pf-pw-eye:hover {
+    color: #64748b;
+}
+
+/* Feedback messages */
+.pf-msg {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.pf-msg.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.pf-msg.error {
+    background: rgba(239, 68, 68, 0.08);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+/* Form footer */
+.pf-form-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.pf-save-btn {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pf-save-btn:hover:not(:disabled) {
+    background: #16a34a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.pf-save-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* Logout button in header */
+.pf-logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: rgba(239, 68, 68, 0.08);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pf-logout-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .pf-content {
+        padding: 1rem;
+    }
+
+    .pf-hero-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pf-field-row {
+        grid-template-columns: 1fr;
+    }
+}

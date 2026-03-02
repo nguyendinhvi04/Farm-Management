@@ -2,36 +2,34 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const AboutSection = () => {
   return (
-    <section className="about-section">
-      <div className="container">
-        <div className="about-grid">
-          <div className="about-illustration">
-            <div className="smart-farm-illustration">
-              <div className="drone">🚁</div>
-              <div className="sensors">📡</div>
-              <div className="crops">🌾</div>
-              <div className="field-grid">
-                <div className="field-row"></div>
-                <div className="field-row"></div>
-                <div className="field-row"></div>
-              </div>
-            </div>
-          </div>
-          <div className="about-content">
-            <h2>Smart Farming Made Easy</h2>
-            <p>
-              AGRIFARM helps farmers manage crops, livestock, irrigation, and finances all in one
-              platform. Monitor your farm's health, optimize resources, and increase yields with
-              real-time data and intelligent insights.
+    <section className="luxury-about-section">
+      <div className="luxury-container luxury-about-container">
+        <motion.div
+          className="luxury-about-content"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="luxury-section-subtitle">OUR MISSION</span>
+          <h2 className="luxury-section-headline">Elevating agriculture<br />to an art form.</h2>
+
+          <div className="luxury-about-text-wrapper">
+            <p className="luxury-about-text">
+              VILAND FARM meticulously curates the relationship between land and technology. We provide farmers with an elegant, all-in-one platform to orchestrate crops, livestock, irrigation, and finances.
             </p>
-            <Link href="/about" className="learn-more-btn">
-              Learn More
+            <p className="luxury-about-text">
+              Monitor your farm's health, optimize resources, and increase yields with real-time data and intelligent insights, refined for the modern agribusiness.
+            </p>
+            <Link href="/about" className="luxury-btn-dark">
+              Discover Our Heritage
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
