@@ -1,12 +1,13 @@
 FROM node:20-alpine
+# Cache bust: 2026-03-03
 
 WORKDIR /app
 
 # Copy package files
 COPY agri-backend/farm-backend/package*.json ./
 
-# Install dependencies
-RUN npm install --production
+# Install dependencies (production only)
+RUN npm install --production --include=optional
 
 # Copy backend source code
 COPY agri-backend/farm-backend/ ./
