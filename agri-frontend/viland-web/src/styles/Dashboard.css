@@ -295,7 +295,179 @@
   justify-content: center;
 }
 
+/* ========= FARM SECTION ========= */
+.db-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem 0.75rem;
+}
+
+.db-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--db-text-primary);
+  margin: 0 0 4px;
+}
+
+.db-section-sub {
+  font-size: 0.8rem;
+  color: var(--db-text-secondary);
+  margin: 0;
+}
+
+.db-add-farm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.db-add-farm-btn:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.db-farms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 0 2rem 1.5rem;
+}
+
+.db-farm-card {
+  background: var(--db-card-bg);
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  padding: 1.25rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.2s;
+  cursor: pointer;
+  box-shadow: var(--db-shadow);
+}
+
+.db-farm-card:hover {
+  border-color: #22c55e;
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+  transform: translateY(-2px);
+}
+
+.db-farm-card:hover .db-farm-arrow {
+  transform: translateX(4px);
+  color: #22c55e;
+}
+
+.db-farm-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.db-farm-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(34, 197, 94, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.db-farm-arrow {
+  color: var(--db-text-secondary);
+  transition: all 0.2s;
+}
+
+.db-farm-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--db-text-primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.db-farm-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--db-text-secondary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.db-farm-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--db-text-secondary);
+}
+
+.db-farm-status {
+  padding: 2px 8px;
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.db-farm-status.active {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+}
+
+.db-farms-loading,
+.db-farms-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 2.5rem;
+  color: var(--db-text-secondary);
+  font-size: 0.9rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.db-spin {
+  animation: spin 1s linear infinite;
+}
+
 /* ========= STATS GRID ========= */
+
 .db-stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

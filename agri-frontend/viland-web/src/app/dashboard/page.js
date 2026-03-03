@@ -6,7 +6,8 @@ import {
   LayoutDashboard, Wheat, Beef, Droplets, Package,
   BarChart3, Settings, HelpCircle, Search, Bell,
   TrendingUp, TrendingDown, Sprout, Thermometer,
-  Wind, CloudRain, Activity, ChevronRight, Circle, Plus
+  Wind, CloudRain, Activity, ChevronRight, Circle, Plus,
+  MapPin, ArrowRight, AlertTriangle, Tractor
 } from 'lucide-react';
 import '../../styles/Dashboard.css';
 
@@ -14,13 +15,36 @@ export default function FarmDashboard() {
   const [activeNav, setActiveNav] = useState('dashboard');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
+  const [farms, setFarms] = useState([]);
+  const [farmsLoading, setFarmsLoading] = useState(true);
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem('user');
-      if (stored) setCurrentUser(JSON.parse(stored));
-    } catch { }
+      if (stored) {
+        const user = JSON.parse(stored);
+        setCurrentUser(user);
+        fetchUserFarms(user.id);
+      } else {
+        setFarmsLoading(false);
+      }
+    } catch { setFarmsLoading(false); }
   }, []);
+
+  const fetchUserFarms = async (userId) => {
+    try {
+      const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
+      const res = await fetch(`${API_BASE}/farms/user/${userId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setFarms(Array.isArray(data) ? data : []);
+      }
+    } catch (e) {
+      console.error('Failed to fetch farms:', e);
+    } finally {
+      setFarmsLoading(false);
+    }
+  };
 
   const getInitials = (user) => {
     if (!user) return 'U';
@@ -167,6 +191,51 @@ export default function FarmDashboard() {
             </Link>
           </div>
         </header>
+
+        {/* ===== MY FARMS SECTION ===== */}
+        <div className="db-section-header">
+          <div>
+            <h2 className="db-section-title"><Tractor size={18} /> My Farms</h2>
+            <p className="db-section-sub">Click on a farm to manage it</p>
+          </div>
+          <Link href="/new-farm" className="db-add-farm-btn">
+            <Plus size={15} /> Add Farm
+          </Link>
+        </div>
+
+        <div className="db-farms-grid">
+          {farmsLoading ? (
+            <div className="db-farms-loading">
+              <Sprout size={24} className="db-spin" color="#22c55e" />
+              <span>Loading farms...</span>
+            </div>
+          ) : farms.length === 0 ? (
+            <div className="db-farms-empty">
+              <AlertTriangle size={32} color="#94a3b8" />
+              <p>No farms yet</p>
+              <Link href="/new-farm" className="db-add-farm-btn">+ Create your first farm</Link>
+            </div>
+          ) : (
+            farms.map((farm) => (
+              <Link key={farm.id} href={`/farm/${farm.id}`} className="db-farm-card">
+                <div className="db-farm-card-top">
+                  <div className="db-farm-icon-wrap">
+                    <Tractor size={20} color="#22c55e" />
+                  </div>
+                  <ArrowRight size={16} className="db-farm-arrow" />
+                </div>
+                <h3 className="db-farm-name">{farm.name}</h3>
+                <p className="db-farm-location">
+                  <MapPin size={12} /> {farm.location || 'No location set'}
+                </p>
+                <div className="db-farm-meta">
+                  <span>{farm.size ? `${farm.size} ha` : '—'}</span>
+                  <span className="db-farm-status active">Active</span>
+                </div>
+              </Link>
+            ))
+          )}
+        </div>
 
         {/* Stats Row */}
         <div className="db-stats-grid">
