@@ -3,17 +3,13 @@ const { Pool } = pkg;
 import dotenv from 'dotenv';
 dotenv.config();
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 const pool = new Pool(
   process.env.DATABASE_URL
     ? {
-      // Railway cung cấp DATABASE_URL — dùng thẳng
       connectionString: process.env.DATABASE_URL,
-      ssl: isProduction ? { rejectUnauthorized: false } : false,
+      ssl: { rejectUnauthorized: false },  // Always use SSL for Railway
     }
     : {
-      // Local dev — dùng biến riêng lẻ
       user: process.env.DB_USER || 'nguyendv',
       host: process.env.DB_HOST || 'localhost',
       database: process.env.DB_NAME || 'farm-management',
@@ -22,5 +18,15 @@ const pool = new Pool(
       ssl: false,
     }
 );
+
+// Log connection status on startup
+pool.connect((err, client, release) => {
+  if (err) {
+    console.error('❌ DB connection failed:', err.message);
+  } else {
+    console.log('✅ DB connected successfully');
+    release();
+  }
+});
 
 export default pool;
