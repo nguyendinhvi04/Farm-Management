@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Wheat, Beef, Droplets, Package,
   BarChart3, Settings, HelpCircle, Search, Bell,
   TrendingUp, TrendingDown, Sprout, Thermometer,
   Wind, CloudRain, Activity, ChevronRight, Circle, Plus,
-  MapPin, ArrowRight, AlertTriangle, Tractor
+  MapPin, ArrowRight, AlertTriangle, Tractor, Menu, X
 } from 'lucide-react';
 import '../../styles/Dashboard.css';
 
@@ -17,6 +18,7 @@ export default function FarmDashboard() {
   const [currentUser, setCurrentUser] = useState(null);
   const [farms, setFarms] = useState([]);
   const [farmsLoading, setFarmsLoading] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -111,8 +113,15 @@ export default function FarmDashboard() {
 
   return (
     <div className="db-layout">
+      {/* Mobile overlay */}
+      <div
+        className={`db-mobile-overlay ${mobileOpen ? 'open' : ''}`}
+        onClick={() => setMobileOpen(false)}
+        aria-hidden="true"
+      />
+
       {/* Sidebar */}
-      <aside className="db-sidebar">
+      <aside className={`db-sidebar ${mobileOpen ? 'mobile-open' : ''}`}>
         <div className="db-sidebar-logo">
           <Sprout size={22} color="#22c55e" />
           <span>Viland Farm</span>
@@ -167,6 +176,15 @@ export default function FarmDashboard() {
       <main className="db-main">
         {/* Header */}
         <header className="db-header">
+          {/* Hamburger — mobile only */}
+          <button
+            className="db-hamburger"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu size={20} />
+          </button>
+
           <div className="db-header-left">
             <h1 className="db-page-title">Dashboard</h1>
             <p className="db-page-subtitle">Welcome back, {getDisplayName(currentUser)} 👋</p>
@@ -372,6 +390,31 @@ export default function FarmDashboard() {
           </div>
         </div>
       </main>
+
+      {/* ===== BOTTOM NAV BAR (Mobile) ===== */}
+      <nav className="db-bottom-nav" aria-label="Mobile navigation">
+        <div className="db-bottom-nav-inner">
+          {[
+            { href: '/dashboard', icon: LayoutDashboard, label: 'Trang chủ', key: 'dashboard' },
+            { href: '/new-farm', icon: Wheat, label: 'Nông trại', key: 'new-farm' },
+            { href: '/new-farm', icon: Plus, label: 'Thêm', key: '__add__', fab: true },
+            { href: '/profile', icon: Settings, label: 'Cài đặt', key: 'settings' },
+            { href: '/profile', icon: Sprout, label: 'Tôi', key: 'profile' },
+          ].map(({ href, icon: Icon, label, key, fab }) => (
+            <Link
+              key={key}
+              href={href}
+              className={`db-bottom-nav-item${activeNav === key ? ' active' : ''}`}
+              onClick={() => setActiveNav(key)}
+            >
+              <div className="db-bottom-nav-icon" style={fab ? { background: '#22c55e', borderRadius: '50%' } : {}}>
+                <Icon size={22} color={fab ? '#fff' : undefined} />
+              </div>
+              <span>{label}</span>
+            </Link>
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }

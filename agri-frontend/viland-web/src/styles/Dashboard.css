@@ -859,32 +859,312 @@
   }
 }
 
-@media (max-width: 768px) {
+/* ========= MOBILE OVERLAY SIDEBAR ========= */
+.db-mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 200;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.db-mobile-overlay.open {
+  display: block;
+}
+
+/* Mobile sidebar slides in from left */
+.db-sidebar.mobile-open {
+  transform: translateX(0) !important;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Hamburger button — only visible on mobile */
+.db-hamburger {
+  display: none;
+  background: var(--db-bg);
+  border: 1px solid var(--db-border);
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--db-text-secondary);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.db-hamburger:hover {
+  background: #e2e8f0;
+}
+
+/* ========= BOTTOM NAV BAR (Mobile) ========= */
+.db-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid var(--db-border);
+  z-index: 150;
+  padding: 0.5rem 0 env(safe-area-inset-bottom, 0.5rem);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.db-bottom-nav-inner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.db-bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 0.3rem 0.75rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background 0.15s;
+  color: var(--db-text-secondary);
+  font-size: 0.65rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  min-width: 52px;
+}
+
+.db-bottom-nav-item.active {
+  color: var(--db-green);
+}
+
+.db-bottom-nav-item.active .db-bottom-nav-icon {
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.db-bottom-nav-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.db-bottom-nav-item:active .db-bottom-nav-icon {
+  background: rgba(0, 0, 0, 0.06);
+  transform: scale(0.92);
+}
+
+/* ========= MOBILE QUICK ADD FAB ========= */
+.db-fab {
+  display: none;
+  position: fixed;
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  right: 1.25rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--db-green);
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.4);
+  z-index: 140;
+  text-decoration: none;
+  color: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.db-fab:active {
+  transform: scale(0.92);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+/* ========= TABLET ========= */
+@media (max-width: 900px) {
   .db-sidebar {
-    display: none;
+    width: 220px;
+  }
+
+  .db-main {
+    margin-left: 220px;
+  }
+
+  .db-search input {
+    width: 160px;
+  }
+}
+
+/* ========= MOBILE (≤768px) ========= */
+@media (max-width: 768px) {
+
+  /* Sidebar slides off-screen by default */
+  .db-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 300;
+    box-shadow: none;
   }
 
   .db-main {
     margin-left: 0;
+    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
   }
 
+  /* Show hamburger */
+  .db-hamburger {
+    display: flex;
+  }
+
+  /* Show bottom nav */
+  .db-bottom-nav {
+    display: block;
+  }
+
+  /* Show FAB */
+  .db-fab {
+    display: flex;
+  }
+
+  /* Header tweaks */
+  .db-header {
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .db-header-left {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .db-page-title {
+    font-size: 1.1rem;
+  }
+
+  .db-page-subtitle {
+    font-size: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Hide search on mobile, show only icon */
+  .db-search {
+    display: none;
+  }
+
+  .db-header-username {
+    display: none;
+  }
+
+  .db-header-user {
+    padding: 0.25rem;
+    border: none;
+    background: none;
+  }
+
+  /* Section header */
+  .db-section-header {
+    padding: 1rem 1rem 0.6rem;
+  }
+
+  /* Farm cards: horizontal scroll snapping on mobile */
+  .db-farms-grid {
+    grid-template-columns: none;
+    display: flex;
+    overflow-x: auto;
+    gap: 0.75rem;
+    padding: 0 1rem 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .db-farms-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .db-farm-card {
+    min-width: 200px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .db-farms-loading,
+  .db-farms-empty {
+    min-width: 280px;
+  }
+
+  /* Stats: 2 columns */
   .db-stats-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.625rem;
+    padding: 0 1rem 0;
+  }
+
+  .db-stat-card {
     padding: 1rem;
   }
 
+  .db-stat-value {
+    font-size: 1.3rem;
+  }
+
+  /* Cards grid: single column */
   .db-grid {
     grid-template-columns: 1fr;
-    padding: 0 1rem 1rem;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem 1rem;
   }
 
-  .db-header {
+  .db-card {
     padding: 1rem;
+  }
+
+  /* Weather chips: wrap */
+  .db-weather-chips {
+    flex-wrap: wrap;
+  }
+
+  /* Forecast 3 cols stays OK */
+  .db-forecast-row {
+    gap: 0.35rem;
+  }
+
+  .db-forecast-item {
+    padding: 0.6rem 0.35rem;
   }
 }
 
+/* ========= SMALL PHONES (≤480px) ========= */
 @media (max-width: 480px) {
   .db-stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .db-stat-value {
+    font-size: 1.15rem;
+  }
+
+  .db-stat-label {
+    font-size: 0.7rem;
+  }
+
+  .db-farm-card {
+    min-width: 175px;
+  }
+
+  .db-section-header {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }
