@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 
 export default function PlotsTab({ farmId }) {
+    const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
     const [plots, setPlots] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
@@ -19,7 +20,7 @@ export default function PlotsTab({ farmId }) {
 
     const fetchPlots = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/farms/${farmId}/plots`);
+            const response = await fetch(`${API_BASE}/farms/${farmId}/plots`);
             if (response.ok) {
                 const data = await response.json();
                 setPlots(data);
@@ -34,7 +35,7 @@ export default function PlotsTab({ farmId }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8000/farms/${farmId}/plots`, {
+            const response = await fetch(`${API_BASE}/farms/${farmId}/plots`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -55,7 +56,7 @@ export default function PlotsTab({ farmId }) {
         if (!confirm('Bạn có chắc muốn xóa lô đất này?')) return;
 
         try {
-            const response = await fetch(`http://localhost:8000/plots/${plotId}`, {
+            const response = await fetch(`${API_BASE}/plots/${plotId}`, {
                 method: 'DELETE'
             });
 

@@ -76,7 +76,8 @@ export default function CreateFarmPage() {
                 owner_id: parseInt(userId),
                 plots: plots.length > 0 ? plots : undefined,
             };
-            const response = await fetch('http://localhost:8000/farms', {
+            const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
+            const response = await fetch(`${API_BASE}/farms`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),

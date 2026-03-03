@@ -28,6 +28,7 @@ export default function ProfilePage() {
     const router = useRouter();
     const [currentUser, setCurrentUser] = useState(null);
     const [activeTab, setActiveTab] = useState('info');
+    const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
 
     // Form states
     const [infoForm, setInfoForm] = useState({ full_name: '', username: '', email: '' });
@@ -71,7 +72,7 @@ export default function ProfilePage() {
         setInfoMsg(null);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:8000/users/${currentUser.id}`, {
+            const res = await fetch(`${API_BASE}/users/${currentUser.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +112,7 @@ export default function ProfilePage() {
         setPwLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:8000/users/${currentUser.id}/change-password`, {
+            const res = await fetch(`${API_BASE}/users/${currentUser.id}/change-password`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

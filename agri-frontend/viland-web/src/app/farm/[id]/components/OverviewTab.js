@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import StatCard from './StatCard';
 
 export default function OverviewTab({ farmId }) {
+    const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
     const [statistics, setStatistics] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -13,7 +14,7 @@ export default function OverviewTab({ farmId }) {
 
     const fetchStatistics = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/farms/${farmId}/statistics`);
+            const response = await fetch(`${API_BASE}/farms/${farmId}/statistics`);
             const data = await response.json();
             setStatistics(data);
         } catch (error) {
