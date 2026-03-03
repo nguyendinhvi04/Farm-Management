@@ -12,7 +12,7 @@ RUN npm install --production
 COPY agri-backend/farm-backend/ ./
 
 # Expose port
-EXPOSE 8000
+EXPOSE 8080
 
 # Start server
 CMD ["npm", "start"]
